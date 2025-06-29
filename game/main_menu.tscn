@@ -1,21 +1,25 @@
-[gd_scene format=3 uid="uid://y16ij833ans0"]
+[gd_scene load_steps=2 format=3 uid="uid://y16ij833ans0"]
+
+[ext_resource type="PackedScene" uid="uid://cjndi4v7wamty" path="res://bg.tscn" id="1_06t4h"]
 
 [node name="main menu" type="Node2D"]
 
 [node name="Button" type="Button" parent="."]
 offset_left = 24.0
-offset_top = 47.0
+offset_top = 429.0
 offset_right = 200.0
-offset_bottom = 135.0
+offset_bottom = 517.0
 
 [node name="Button2" type="Button" parent="."]
 offset_left = 24.0
-offset_top = 273.0
+offset_top = 323.0
 offset_right = 200.0
-offset_bottom = 361.0
+offset_bottom = 411.0
 
 [node name="Button3" type="Button" parent="."]
 offset_left = 24.0
-offset_top = 162.0
+offset_top = 218.0
 offset_right = 200.0
-offset_bottom = 250.0
+offset_bottom = 306.0
+
+[node name="BG" parent="." instance=ExtResource("1_06t4h")]
