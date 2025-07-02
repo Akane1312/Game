@@ -1,7 +1,8 @@
-[gd_scene load_steps=35 format=3 uid="uid://nhr01pct5x23"]
+[gd_scene load_steps=34 format=3 uid="uid://nhr01pct5x23"]
 
 [ext_resource type="Script" uid="uid://dmtrmvt6atprq" path="res://Player/player.gd" id="1_4ntmi"]
 [ext_resource type="Texture2D" uid="uid://b4oqa2rvad0wk" path="res://Player/char_blue.png" id="1_l8h54"]
+[ext_resource type="Texture2D" uid="uid://b2iwe5fy22u7i" path="res://Player/Sprite-0003-Sheet.png" id="3_btcbx"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hvfyp"]
 
@@ -38,28 +39,20 @@ atlas = ExtResource("1_l8h54")
 region = Rect2(392, 168, 56, 56)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b1ygp"]
-atlas = ExtResource("1_l8h54")
-region = Rect2(0, 0, 56, 56)
+atlas = ExtResource("3_btcbx")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o28un"]
-atlas = ExtResource("1_l8h54")
-region = Rect2(56, 0, 56, 56)
+atlas = ExtResource("3_btcbx")
+region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n471f"]
-atlas = ExtResource("1_l8h54")
-region = Rect2(112, 0, 56, 56)
+atlas = ExtResource("3_btcbx")
+region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7emwf"]
-atlas = ExtResource("1_l8h54")
-region = Rect2(168, 0, 56, 56)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hshwv"]
-atlas = ExtResource("1_l8h54")
-region = Rect2(224, 0, 56, 56)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gpjlu"]
-atlas = ExtResource("1_l8h54")
-region = Rect2(280, 0, 56, 56)
+atlas = ExtResource("3_btcbx")
+region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8mwp6"]
 atlas = ExtResource("1_l8h54")
@@ -168,16 +161,10 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7emwf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hshwv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gpjlu")
 }],
 "loop": true,
 "name": &"idle",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -248,9 +235,9 @@ position = Vector2(62, 130)
 shape = SubResource("CapsuleShape2D_hvfyp")
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(62, 117)
+position = Vector2(63, 130)
 sprite_frames = SubResource("SpriteFrames_l8h54")
-animation = &"Jump1"
+animation = &"idle"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(62, 115)
