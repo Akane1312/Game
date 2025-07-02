@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://dqvkwglalbdxd"]
+
+[ext_resource type="Texture2D" uid="uid://bxxny2byljnfl" path="res://Objects/pixil-frame-0.png" id="1_snlkj"]
+
+[sub_resource type="GDScript" id="GDScript_n5xua"]
+script/source = "extends RigidBody2D
+
+@export var push_force: float = 300.0  # Сила толчка
+var being_pushed: bool = false
+var pusher: Node2D = null  # Кто толкает камень
+
+func _physics_process(delta):
+	if being_pushed and pusher:
+		# Применяем силу в направлении толчка
+		var direction = global_position.direction_to(pusher.global_position)
+		apply_central_impulse(-direction * push_force * delta)
+
+# Обнаружение игрока в зоне толчка
+func _on_area_2d_body_entered(body):
+	if body.is_in_group(\"player\"):
+		being_pushed = true
+		pusher = body
+
+# Игрок вышел из зоны толчка
+func _on_area_2d_body_exited(body):
+	if body == pusher:
+		being_pushed = false
+		pusher = null
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_snlkj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ueomp"]
+radius = 13.0
+
+[node name="RigidBody2D" type="RigidBody2D"]
+collision_mask = 7
+mass = 45.409
+script = SubResource("GDScript_n5xua")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0.124994, 0.124995)
+scale = Vector2(1.35938, 1.35938)
+texture = ExtResource("1_snlkj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-7.45058e-09, 0)
+shape = SubResource("CircleShape2D_snlkj")
+
+[node name="Area2D" type="Area2D" parent="CollisionShape2D"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionShape2D/Area2D"]
+shape = SubResource("CircleShape2D_ueomp")

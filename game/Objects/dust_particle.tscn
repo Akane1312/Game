@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=3 uid="uid://dqvkwglalbdxd"]
+
+[ext_resource type="Texture2D" uid="uid://bxxny2byljnfl" path="res://Objects/pixil-frame-0.png" id="1_snlkj"]
+[ext_resource type="Texture2D" uid="uid://cicy8qwg53qfe" path="res://Objects/pixil-frame-0(3).png" id="2_2jycb"]
+
+[sub_resource type="GDScript" id="GDScript_n5xua"]
+script/source = "extends RigidBody2D
+
+@export var friction = 0.2
+@export var mass_kg = 40.0
+
+@onready var dust_particles = $DustParticles
+
+func _ready():
+	mass = mass_kg
+	gravity_scale = 1.0
+	linear_damp = 0.1
+	add_to_group(\"pushable_rock\")
+	
+	# Настройка физического материала
+	var material = PhysicsMaterial.new()
+	material.friction = friction
+	physics_material_override = material
+
+func push(direction):
+	apply_central_impulse(Vector2(direction * mass_kg * 50, 0))
+	dust_particles.emitting = true
+
+func _physics_process(delta):
+	# Вращение камня
+	if abs(linear_velocity.x) > 10:
+		rotation += linear_velocity.x * delta * 0.05
+	
+	# Пыль при движении
+	dust_particles.emitting = abs(linear_velocity.x) > 20 and get_contact_count() > 0
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_snlkj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ueomp"]
+radius = 13.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_diah1"]
+particle_flag_disable_z = true
+initial_velocity_min = 15.0
+initial_velocity_max = 15.0
+gravity = Vector3(0, 98, 0)
+
+[node name="RigidBody2D" type="RigidBody2D"]
+collision_mask = 7
+mass = 50.0
+script = SubResource("GDScript_n5xua")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0.124994, 0.124995)
+scale = Vector2(1.35938, 1.35938)
+texture = ExtResource("1_snlkj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-7.45058e-09, 0)
+shape = SubResource("CircleShape2D_snlkj")
+
+[node name="Area2D" type="Area2D" parent="CollisionShape2D"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionShape2D/Area2D"]
+shape = SubResource("CircleShape2D_ueomp")
+
+[node name="DustParticles" type="GPUParticles2D" parent="."]
+position = Vector2(7, 11)
+texture = ExtResource("2_2jycb")
+process_material = SubResource("ParticleProcessMaterial_diah1")
