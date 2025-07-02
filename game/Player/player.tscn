@@ -237,7 +237,7 @@ shape = SubResource("CapsuleShape2D_hvfyp")
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(63, 130)
 sprite_frames = SubResource("SpriteFrames_l8h54")
-animation = &"idle"
+animation = &"Jump1"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(62, 115)
